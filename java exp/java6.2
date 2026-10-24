@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+// Abstract class
+abstract class Bank {
+
+    abstract void bankName();
+
+    void welcome() {
+        System.out.println("Welcome to Digital Wallet Banking");
+    }
+}
+
+// Child class
+class DigitalWallet extends Bank {
+
+    String name;
+    int id;
+    double balance;
+
+    // Constructor
+    DigitalWallet(String name, int id, double balance) {
+        this.name = name;
+        this.id = id;
+        this.balance = balance;
+    }
+
+    // Implementing abstract method
+    @Override
+    void bankName() {
+        System.out.println("Bank: Digital Wallet Bank");
+    }
+
+    // Display details
+    void details() {
+        System.out.println("Name: " + name);
+        System.out.println("Wallet ID: " + id);
+        System.out.println("Balance: " + balance);
+    }
+
+    // Deposit money
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid Deposit Amount");
+        }
+    }
+
+    // Withdraw money
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient Balance or Invalid Amount");
+        }
+    }
+
+    // Check balance
+    void checkBalance() {
+        System.out.println("Balance: " + balance);
+    }
+
+    // Check wallet status
+    void status() {
+        System.out.println("Status: " +
+                (balance > 0 ? "Active" : "Inactive"));
+    }
+}
+
+// Main class
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Wallet ID: ");
+        int id = sc.nextInt();
+
+        System.out.print("Enter Balance: ");
+        double balance = sc.nextDouble();
+
+        // Creating object
+        DigitalWallet w = new DigitalWallet(name, id, balance);
+
+        w.welcome();
+        w.bankName();
+        w.details();
+
+        System.out.print("Enter Deposit: ");
+        w.deposit(sc.nextDouble());
+
+        System.out.print("Enter Withdraw: ");
+        w.withdraw(sc.nextDouble());
+
+        w.checkBalance();
+        w.status();
+
+        sc.close();
+    }
+}
